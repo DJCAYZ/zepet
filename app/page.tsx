@@ -41,9 +41,13 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-7xl flex-col gap-4 items-center justify-center py-32 px-16 bg-white dark:bg-black">
         <img
-          className={hovered ? 'rounded-none' : 'rounded-full'}
+          className={
+            `${hovered ? 'rounded-none' : 'rounded-full'}
+            aspect-square object-cover object-top
+            w-[360px] h-[360px]`
+          }
           alt='zepe'
-          src={hovered ? '/video/yeah.gif' : Chipe.src}
+          src={hovered ? '/gifs/chipe.gif' : '/images/chipe.jpg'}
           width={240}
           height={240}
           onMouseEnter={() => setHovered(true)}

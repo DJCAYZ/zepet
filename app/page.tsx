@@ -18,6 +18,9 @@ export default function Home() {
 
   const [time, setTime] = useState(dayjs());
 
+  // toggle between showing image and showing video
+  const [showVideo, setShowVideo] = useState(false);
+
   useEffect(() => {
     function updateTime() {
       setTime(dayjs())
@@ -33,13 +36,30 @@ export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-7xl flex-col gap-4 items-center justify-center py-32 px-16 bg-white dark:bg-black">
-        <Image
-          className='rounded-full'
-          alt='zepe'
-          src={Chipe}
-          height={240}
-        />
-        <p className='tracking-widest'>Zep Et</p>
+        {showVideo ? (
+          <video
+            className='rounded-full'
+            width={240}
+            height={240}
+            controls
+            autoPlay
+            onClick={() => setShowVideo(false)} // click video to go back to image
+          >
+            <source src="/video/yeah.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <>
+            <Image
+              className='rounded-full cursor-pointer'
+              alt='zepe'
+              src={Chipe}
+              height={240}
+              onClick={() => setShowVideo(true)}
+            />
+            <p className='tracking-widest'>Zep Et</p>
+          </>
+        )}
         {/* compute difference and format using duration plugin */}
         {
           (() => {

@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react';
 import objectSupport from 'dayjs/plugin/objectSupport';
 import duration from 'dayjs/plugin/duration';
 
-import Chipe from './chipe.jpg';
-
 // extend dayjs with all necessary plugins
 dayjs.extend(objectSupport);
 dayjs.extend(duration);
@@ -53,7 +51,7 @@ export default function Home() {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         />
-        <p className='tracking-widest text-lg'>Zep Et</p>
+        <p className='tracking-widest text-lg'>Zepet</p>
 
         {timeMode === 'zepet' ? (
           (() => {

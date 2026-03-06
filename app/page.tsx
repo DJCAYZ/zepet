@@ -9,6 +9,27 @@ dayjs.extend(objectSupport);
 dayjs.extend(duration);
 
 export default function Home() {
+  const dayOfTheWeek = dayjs().day();
+
+  const gifs = {
+    0: 'gifs/chipe.gif',
+    1: 'gifs/chipe.gif',
+    2: 'gifs/chipe.gif',
+    3: 'gifs/chipe.gif',
+    4: 'gifs/chipe.gif',
+    5: 'gifs/chipe.gif',
+    6: 'gifs/chipe.gif',
+  };
+
+  const images: Record<number, string> = {
+    0: 'images/chipe.jpg',
+    1: 'images/chipe.jpg',
+    2: 'images/jose.jpg',
+    3: 'images/ricafrente.png',
+    4: 'images/salameda.jpg',
+    5: 'images/sambajon.jpg',
+    6: 'images/sarmiento.png',
+  }
 
   // target time set to today's 5:00 PM local time
   const countdownTo = dayjs()
@@ -21,7 +42,7 @@ export default function Home() {
   const [time, setTime] = useState(dayjs());
 
   // whether user is hovering over the image
-  const [hovered, setHovered] = useState(false);
+  const [toggled, setToggled] = useState(false);
 
   useEffect(() => {
     // keep the clock updated
@@ -47,16 +68,15 @@ export default function Home() {
       <main className="flex min-h-screen w-full max-w-7xl flex-col gap-4 items-center justify-center py-32 px-16 bg-white dark:bg-black">
         <img
           className={
-            `${hovered ? 'rounded-none' : 'rounded-full'}
+            `${toggled ? 'rounded-none' : 'rounded-full'}
             aspect-square object-cover object-top
             w-90 h-90`
           }
           alt='zepe'
-          src={hovered ? '/gifs/chipe.gif' : '/images/chipe.jpg'}
+          src={toggled ? gifs[dayOfTheWeek] : images[dayOfTheWeek]}
           width={360}
           height={360}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
+          onClick={() => setToggled(!toggled)}
         />
         <p className='tracking-widest text-lg'>Zepet</p>
 

@@ -1,64 +1,61 @@
-import Image from "next/image";
+"use client";
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import objectSupport from 'dayjs/plugin/objectSupport';
+import duration from 'dayjs/plugin/duration';
+
+import Chipe from './chipe.jpg';
+import Image from 'next/image';
+
+// extend dayjs with all necessary plugins
+dayjs.extend(objectSupport);
+dayjs.extend(duration);
 
 export default function Home() {
+
+  // target time can be any dayjs object; update as needed
+  const countdownTo = dayjs("2026-03-06 17:00");
+
+  const [time, setTime] = useState(dayjs());
+
+  useEffect(() => {
+    function updateTime() {
+      setTime(dayjs())
+    }
+
+    const interval = setInterval(updateTime, 1000);
+
+    return () => {
+      clearInterval(interval);
+    }
+  }, [])
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+      <main className="flex min-h-screen w-full max-w-7xl flex-col gap-4 items-center justify-center py-32 px-16 bg-white dark:bg-black">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+          className='rounded-full'
+          alt='zepe'
+          src={Chipe}
+          height={240}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        <p className='tracking-widest'>Zep Et</p>
+        {/* compute difference and format using duration plugin */}
+        {
+          (() => {
+            const diff = countdownTo.diff(time); // milliseconds remaining
+            if (diff <= 0) {
+              return <p>Time's up!</p>;
+            }
+            const dur = dayjs.duration(diff);
+            const parts = [];
+            if (dur.days() > 0) parts.push(`${dur.days()}d`);
+            parts.push(
+              `${String(dur.hours()).padStart(2, '0')}:${String(dur.minutes()).padStart(2, '0')}:${String(dur.seconds()).padStart(2, '0')}`
+            );
+            return <p className='text-7xl text-center font-bold'>{parts.join(' ')}</p>;
+          })()
+        }
       </main>
     </div>
   );

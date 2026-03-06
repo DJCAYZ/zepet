@@ -9,6 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@turf/boolean-point-in-polygon": "^7.3.4",
+    "@turf/helpers": "^7.3.4",
+    "@turf/line-to-polygon": "^7.3.4",
+    "dayjs": "^1.11.19",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
